@@ -1,11 +1,25 @@
 import { FormComponent } from "../components/forms";
 import { DefaultLayout } from "../layouts/default";
 import { HeaderLayout } from "../layouts/header";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterPage = () => {
-  const toMain = () => {
-    console.log("test");
-  };
+  const navigate = useNavigate()
+  const register = (data:{
+    name: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+  }) => {
+    const email = localStorage.getItem(data.email);
+    if(email){
+      alert("Email sudah terdaftar");
+      return;
+    }   
+    localStorage.setItem(data.email,data.password);
+    window.confirm("Akun berhasil dibuat, silahkan login");
+    navigate("/login")
+  }
   return (
     <>
       <HeaderLayout />
@@ -13,7 +27,7 @@ export const RegisterPage = () => {
         <DefaultLayout className="mx-3 flex w-full flex-col items-center justify-start gap-1 rounded-lg p-7 md:w-[600px]">
           <h1 className="text-heading3 font-bold">Pendaftaran Akun</h1>
           <p className="text-bodyMedium font-light">Yuk, Daftarkan akunmu sekarang juga!</p>
-          <FormComponent variant="register" className="w-full pt-6" onSubmit={toMain} />
+          <FormComponent variant="register" className="w-full pt-6" onSubmit={register} />
         </DefaultLayout>
       </div>
     </>

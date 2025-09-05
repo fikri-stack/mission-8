@@ -34,7 +34,7 @@ export const ShowProductComponent: React.FC<showProductProps> = ({ contents }) =
                       {item.rating} ({item.reviewCount})
                     </p>
                   </div>
-                  <p className="text-heading4 font-bold text-[#3ECF4C]">{item.price}</p>
+                  <p className="text-heading5 font-bold text-[#3ECF4C]">{item.price}</p>
                 </div>
               </div>
             </DefaultLayout>

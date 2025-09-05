@@ -14,15 +14,17 @@ export const FormComponent = ({
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Variant extends "login" ? LoginFormValues : RegisterFormValues>();
 
   const isRegister = variant === "register";
+  const password = watch("password");
 
   return (
     <form
-      onSubmit={handleSubmit((data) => console.log(data))}
-      className={`space-y-4 ${className}`}
+      onSubmit={handleSubmit((data) => onSubmit?.(data))}
+      className={`flex flex-col gap-3 ${className}`}
       {...props}
     >
       {isRegister && (
@@ -30,7 +32,12 @@ export const FormComponent = ({
           <TextInput
             label="Nama Lengkap"
             className="w-full"
-            registration={register("name")}
+            registration={register("name",{
+              required: "Nama lengkap wajib diisi",
+              minLength: { value: 3, message: "Nama lengkap minimal 3 karakter" },
+              maxLength: { value: 50, message: "Nama lengkap maksimal 50 karakter" },
+              pattern: { value: /^[A-Za-z\s]+$/, message: "Nama lengkap hanya boleh berisi huruf dan spasi" },
+            })}
             error={errors?.name?.message}
           />
         </>
@@ -39,7 +46,12 @@ export const FormComponent = ({
       <EmailInput
         label="Email"
         className="w-full"
-        registration={register("email")}
+        registration={register("email",{
+          required: "Email wajib diisi",  
+          pattern: { value: /^\S+@\S+$/i, message: "Format email tidak valid" },
+          maxLength: { value: 100, message: "Email maksimal 100 karakter" },
+
+        })}
         error={errors?.email?.message}
       />
 
@@ -47,7 +59,12 @@ export const FormComponent = ({
         <PhoneInput
           label="Nomor Telepon"
           className="w-full"
-          registration={register("phone")}
+          registration={register("phone",{
+            required: "Nomor telepon wajib diisi",
+            pattern: { value: /^\d+$/, message: "Nomor telepon hanya boleh berisi angka" },
+            minLength: { value: 10, message: "Nomor telepon minimal 10 digit" },
+            maxLength: { value: 13, message: "Nomor telepon maksimal 13 digit" },
+          })}
           error={errors?.phone?.message}
         />
       )}
@@ -55,15 +72,28 @@ export const FormComponent = ({
       <PasswordInput
         label="Password"
         className="w-full"
-        registration={register("password")}
+        registration={register("password",{
+          required: "Password wajib diisi",
+          minLength: { value: 6, message: "Password minimal 6 karakter" },
+          maxLength: { value: 20, message: "Password maksimal 20 karakter" },
+          pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "Password harus mengandung huruf dan angka" },
+        })}
         error={errors?.password?.message}
-      />
+        />
 
       {isRegister && (
         <PasswordInput
-          label="Konfirmasi Password"
-          className="w-full"
-          registration={register("passwordConfirmation")}
+        label="Konfirmasi Password"
+        className="w-full"
+        registration={register("passwordConfirmation",{
+          required: "Konfirmasi password wajib diisi",
+          minLength: { value: 6, message: "Password minimal 6 karakter" },
+          maxLength: { value: 20, message: "Password maksimal 20 karakter" },
+          pattern: { value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/, message: "Password harus mengandung huruf dan angka" },
+          
+          validate: (value) => value === password || "Konfirmasi password tidak sama",
+  
+          })}
           error={errors?.passwordConfirmation?.message}
         />
       )}

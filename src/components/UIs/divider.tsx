@@ -3,7 +3,7 @@ import type { DividerProps } from "../../utils/types";
 export const DividerUI: React.FC<DividerProps> = ({
   width = "100%",
   color = "#CCCCC",
-  thick = "1px",
+  thick = "555px",
 }) => {
   return (
     <div

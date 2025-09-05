@@ -7,20 +7,18 @@ import { mousePointerTracking, touchTracking } from "../utils/funtions";
 import { FooterLayout } from "../layouts/footer";
 import { ShowProductComponent } from "../components/showProduct";
 import { ImageAsBackgroudUI } from "../components/UIs/imageAsBackground";
-
-export const HomePage = () => {
-  const ulRef = useRef<HTMLUListElement>(null);
-  const contents = [
+import { useNavigate } from "react-router-dom";
+ const contents = [
     {
       id: 1,
-      contentImage: "assets/contents/content1.jpg",
+      contentImage: "public/assets/contents/content1.jpg",
       title: "Big Auditor Financial Analyst",
       description:
         "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
       avatar: "assets/contents/avatar1.png",
       name: "Jena Ortega",
       position: "Senior accountant di Gojek",
-      rating: 3.5,
+      rating: 3.,
       reviewCount: 86,
       price: "Rp 300K",
     },
@@ -129,6 +127,9 @@ export const HomePage = () => {
       price: "Rp 300K",
     },
   ];
+export const HomePage = () => {
+  const ulRef = useRef<HTMLUListElement>(null);
+  const navigate = useNavigate()
 
   return (
     <>
@@ -144,7 +145,7 @@ export const HomePage = () => {
               berkualitas tinggi. Tidak hanya itu, Anda juga dapat berpartisipasi dalam latihan
               interaktif yang akan meningkatkan pemahaman Anda.
             </p>
-            <ButtonUI className="z-20 mt-4 max-w-96 px-2 py-3 text-bodySmall md:mt-5 md:text-bodyMedium">
+            <ButtonUI className="z-20 mt-4 max-w-96 px-2 py-3 text-bodySmall md:mt-5 md:text-bodyMedium" onClick={() => navigate("/products")}>
               Temukan Video Course untuk Dipelajari!
             </ButtonUI>
           </div>

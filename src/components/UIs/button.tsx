@@ -29,7 +29,7 @@ export const ButtonUI: React.FC<ButtonProps> = ({
 }) => {
   const baseClasses = `
     py-2 px-4 rounded-md
-    text-center font-medium
+    text-center font-1px
     hover:opacity-90 transition-opacity
     ${fullWidth ? "w-full" : "w-auto"}
   `;

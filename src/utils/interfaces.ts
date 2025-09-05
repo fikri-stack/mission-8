@@ -14,7 +14,7 @@ export interface DefaultLayoutProps {
 
 export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
   className?: string;
-  onSubmit: () => void | Promise<void>;
+  onSubmit: any
 }
 
 export interface InputProps {
