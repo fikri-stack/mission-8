@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
  const contents = [
     {
       id: 1,
-      contentImage: "public/assets/contents/content1.jpg",
+      contentImage: "assets/contents/content1.jpg",
       title: "Big Auditor Financial Analyst",
       description:
         "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
