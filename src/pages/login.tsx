@@ -17,6 +17,7 @@ export const LoginPage = () => {
       alert("Password salah");
       return;
     }
+    localStorage.setItem("isAuth", "true");
     alert("Login berhasil");
     navigate("/");
   }
