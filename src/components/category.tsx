@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useIsMobile } from "../utils/useIsMobile";
+import { useIsMobile } from "../services/hooks/useIsMobile";
 import type { CategoryProps } from "../utils/types";
 
 export const CategoryComponent = ({

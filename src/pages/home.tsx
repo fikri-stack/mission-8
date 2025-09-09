@@ -8,6 +8,7 @@ import { FooterLayout } from "../layouts/footer";
 import { ShowProductComponent } from "../components/showProduct";
 import { ImageAsBackgroudUI } from "../components/UIs/imageAsBackground";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
  const contents = [
     {
       id: 1,
@@ -130,6 +131,11 @@ import { useNavigate } from "react-router-dom";
 export const HomePage = () => {
   const ulRef = useRef<HTMLUListElement>(null);
   const navigate = useNavigate()
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  const selectCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   return (
     <>
@@ -175,15 +181,27 @@ export const HomePage = () => {
               (category) => (
                 <li
                   key={category}
-                  className={`cursor-pointer font-sans font-medium hover:text-red-600 ${category === "Semua Kelas" ? "text-red-600" : ""}`}
-                  onClick={() => console.log(category)}
+                  className={`cursor-pointer font-sans font-medium hover:text-red-600 ${selectedCategory ? category === selectedCategory && "text-red-600" : category === "Semua Kelas" && "text-red-600"} flex flex-col gap-3`}
+                  onClick={() => selectCategory(category)}
                 >
                   {category}
+                  <div
+                    className={
+                      selectedCategory
+                        ? category === selectedCategory
+                          ? "block"
+                          : "hidden"
+                        : category === "Semua Kelas"
+                          ? "block"
+                          : "hidden"
+                    }
+                  >
+                    <DividerUI width="30px" color="#dc2626" thick="5px" />
+                  </div>
                 </li>
               )
             )}
           </ul>
-          <DividerUI width="5%" color="#dc2626" thick="5px" />
           <ShowProductComponent contents={contents} />
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { CardLayout } from "../layouts/card";
 import type { showProductProps } from "../utils/interfaces";
-import { useIsMobile } from "../utils/useIsMobile";
+import { useIsMobile } from "../services/hooks/useIsMobile";
 import { StarRatingUi } from "./UIs/stars";
 
 export const ShowProductComponent: React.FC<showProductProps> = ({ contents }) => {
