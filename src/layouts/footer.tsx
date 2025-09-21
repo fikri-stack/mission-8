@@ -1,26 +1,67 @@
 import { CategoryComponent } from "../components/category";
 import { DividerUI } from "../components/UIs/divider";
+import type { CategoryContent } from "../utils/types";
 
-const kategoriContent: Record<string, React.ReactNode> = {
-  "1": <>Digital & Teknologi</>,
-  "2": <>Pemasaran</>,
-  "3": <>Manajemen Bisnis</>,
-  "4": <>Pengembangan Diri</>,
-  "5": <>Desain</>,
+const filter = (filter: string) => {
+  console.log(filter);
 };
 
-const perusahaanContent: Record<string, React.ReactNode> = {
-  "1": <>Tentang Kami</>,
-  "2": <>FAQ</>,
-  "3": <>Kebijakan Privasi</>,
-  "4": <>Ketentuan Layanan</>,
-  "5": <>Bantuan</>,
-};
+const kategoriContent: CategoryContent[] = [
+  {
+    element: <>Digital & Teknologi</>,
+    func: () => filter("digital dan teknologi"),
+  },
+  {
+    element: <>Pemasaran</>,
+    func: () => filter("pemasaran"),
+  },
+  {
+    element: <>Manajemen Bisnis</>,
+    func: () => filter("manajemen bisnis"),
+  },
+  {
+    element: <>Pengembangan Diri</>,
+    func: () => filter("pengembangan diri"),
+  },
+  {
+    element: <>Desain</>,
+    func: () => filter("Desain"),
+  },
+];
 
-const komunitasContent: Record<string, React.ReactNode> = {
-  "1": <>Tips Sukses</>,
-  "2": <> Blog</>,
-};
+const perusahaanContent: CategoryContent[] = [
+  {
+    element: <>Tentang Kami</>,
+    func: () => filter("tentang kami"),
+  },
+  {
+    element: <>FAQ</>,
+    func: () => filter("faq"),
+  },
+  {
+    element: <>Kebijakan Privasi</>,
+    func: () => filter("kebijakan privasi"),
+  },
+  {
+    element: <>Ketentuan Layanan</>,
+    func: () => filter("ketentuan layanan"),
+  },
+  {
+    element: <>Bantuan</>,
+    func: () => filter("bantuan"),
+  },
+];
+
+const komunitasContent: CategoryContent[] = [
+  {
+    element: <>Tips Sukses</>,
+    func: () => filter("Tips Sukses"),
+  },
+  {
+    element: <>Blog</>,
+    func: () => filter("Blog"),
+  },
+];
 
 export const FooterLayout = () => {
   return (

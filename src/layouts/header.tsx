@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "../services/hooks/useauth";
 import { ButtonUI } from "../components/UIs/button";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,19 @@ import { useNavigate } from "react-router-dom";
 export const HeaderLayout = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const { isAuthenticated } = useAuth();
+
+  // Secret admin shortcut: Ctrl+Shift+A
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'A') {
+        e.preventDefault();
+        navigate('/admin');
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const logout = () => {
     setShowDropdown(!showDropdown);
@@ -64,6 +77,12 @@ export const HeaderLayout = () => {
               >
                 Kategori
               </span>
+              <span
+                className="cursor-pointer px-4 text-[#FF6B6B]"
+                onClick={() => navigate("/admin")}
+              >
+                Admin
+              </span>
               <ButtonUI onClick={() => navigate("/login")}  className="bg-black text-white p-4">Login</ButtonUI>
               <ButtonUI onClick={() => navigate("/register")} variant="secondary">
                 Register
@@ -109,8 +128,14 @@ export const HeaderLayout = () => {
             style={{ zIndex: 100 }}
           >
             <div
+              onClick={() => navigate("/admin")}
+              className="cursor-pointer border-b border-t bg-[#FF6B6B] p-4 text-white hover:bg-red-600"
+            >
+              Admin
+            </div>
+            <div
               onClick={() => navigate("/login")}
-              className="cursor-pointer border-b border-t bg-[#3ecf4c] p-4 text-[#3ECF4C] hover:bg-green-600"
+              className="cursor-pointer border-b bg-[#3ecf4c] p-4 text-[#3ECF4C] hover:bg-green-600"
             >
               Login
             </div>

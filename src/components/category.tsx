@@ -25,12 +25,13 @@ export const CategoryComponent = ({
         <ul
           className={`${showCategory ? "block gap-3" : "hidden gap-0"} ${isMobile && "flex"} mt-4 flex-col md:flex md:gap-3`}
         >
-          {Object.entries(content).map((value, index) => (
+          {content.map((item, index) => (
             <li
-              key={`${value[1]}-${index}`}
-              className={`text-bodyMedium font-normal md:whitespace-nowrap ${contentClassName}`}
+              key={`${item.element}-${index}`}
+              className={`cursor-pointer text-bodyMedium font-normal md:whitespace-nowrap ${contentClassName}`}
+              onClick={item.func}
             >
-              <a href={value[0]}>{value[1]}</a>
+              {item.element}
             </li>
           ))}
         </ul>

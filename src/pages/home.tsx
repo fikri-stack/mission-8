@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ButtonUI } from "../components/UIs/button";
 import { DividerUI } from "../components/UIs/divider";
 import { TextInput } from "../components/UIs/input";
@@ -7,135 +7,44 @@ import { mousePointerTracking, touchTracking } from "../utils/funtions";
 import { FooterLayout } from "../layouts/footer";
 import { ShowProductComponent } from "../components/showProduct";
 import { ImageAsBackgroudUI } from "../components/UIs/imageAsBackground";
+import { useCourseStore } from "../stores/courseStore";
+import { getData } from "../services/getData";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
- const contents = [
-    {
-      id: 1,
-      contentImage: "assets/contents/content1.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar1.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 2,
-      contentImage: "assets/contents/content2.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar2.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 3,
-      contentImage: "assets/contents/content3.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar3.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 4,
-      contentImage: "assets/contents/content4.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar4.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 5,
-      contentImage: "assets/contents/content5.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar5.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 6,
-      contentImage: "assets/contents/content6.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar6.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 7,
-      contentImage: "assets/contents/content7.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar7.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 8,
-      contentImage: "assets/contents/content8.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar8.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-    {
-      id: 9,
-      contentImage: "assets/contents/content9.jpg",
-      title: "Big Auditor Financial Analyst",
-      description:
-        "Mulai transformasi dengan instruktur profesional, harga yang terjangkau, dan kurikulum terbaik",
-      avatar: "assets/contents/avatar9.png",
-      name: "Jena Ortega",
-      position: "Senior accountant di Gojek",
-      rating: 3.5,
-      reviewCount: 86,
-      price: "Rp 300K",
-    },
-  ];
-export const HomePage = () => {
-  const ulRef = useRef<HTMLUListElement>(null);
-  const navigate = useNavigate()
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+import type { Content } from "../utils/types";
 
-  const selectCategory = (category: string) => {
-    setSelectedCategory(category);
+export const HomePage = () => {
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const { courses, loading, loadCourses } = useCourseStore();
+  const [contents, setContents] = useState<Content[]>([]);
+  const navigate = useNavigate();
+  const ulRef = useRef<HTMLUListElement>(null);
+
+  const selectCategory = (selected: string) => {
+    setSelectedCategory(selected);
+    const randomCount = [3, 6, 9][Math.floor(Math.random() * 3)];
+    
+    if (courses.length > 0) {
+      const shuffled = [...courses].sort(() => 0.5 - Math.random());
+      setContents(shuffled.slice(0, randomCount));
+    } else {
+      // Fallback to mock data
+      setContents(getData().getRandomizeData(randomCount).data);
+    }
   };
+
+  // Load courses and set initial content
+  useEffect(() => {
+    loadCourses();
+  }, []);
+
+  useEffect(() => {
+    if (courses.length > 0) {
+      setContents(courses);
+    } else if (!loading) {
+      // Fallback to mock data if Firebase is empty
+      setContents(getData().getAllData().data);
+    }
+  }, [courses, loading]);
 
   return (
     <>
@@ -151,7 +60,10 @@ export const HomePage = () => {
               berkualitas tinggi. Tidak hanya itu, Anda juga dapat berpartisipasi dalam latihan
               interaktif yang akan meningkatkan pemahaman Anda.
             </p>
-            <ButtonUI className="z-20 mt-4 max-w-96 px-2 py-3 text-bodySmall md:mt-5 md:text-bodyMedium" onClick={() => navigate("/products")}>
+            <ButtonUI
+              onClick={() => navigate("/products")}
+              className="z-20 mt-4 max-w-96 px-2 py-3 text-bodySmall md:mt-5 md:text-bodyMedium"
+            >
               Temukan Video Course untuk Dipelajari!
             </ButtonUI>
           </div>
@@ -202,7 +114,13 @@ export const HomePage = () => {
               )
             )}
           </ul>
-          <ShowProductComponent contents={contents} />
+          {loading ? (
+            <div className="text-center py-8">
+              <p className="text-bodyMedium">Loading courses...</p>
+            </div>
+          ) : (
+            <ShowProductComponent contents={contents} />
+          )}
         </div>
       </div>
       <ImageAsBackgroudUI src="/assets/hero.jpg">
