@@ -66,6 +66,12 @@ export const HeaderLayout = () => {
                     </div>
                   )}
                 </div>
+                <span
+                  className="cursor-pointer text-[#FF6B6B]"
+                  onClick={() => navigate("/admin")}
+                >
+                  Admin
+                </span>
                 <img className="avatar h-[45px]" src="/assets/avatar.png" alt="User avatar" />
               </div>
             </div>
