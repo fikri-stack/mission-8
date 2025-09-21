@@ -17,7 +17,7 @@ interface CourseState {
   setError: (error: string | null) => void;
 }
 
-export const useCourseStore = create<CourseState>((set, get) => ({
+export const useCourseStore = create<CourseState>((set) => ({
   courses: [],
   loading: false,
   error: null,

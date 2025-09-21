@@ -112,7 +112,7 @@ export const ProductsDetailsPage = () => {
               <div className="flex flex-col gap-5">
                 <h2 className="mb-3 text-heading6 font-bold">Kamu akan Mempelajari</h2>
                 <div className="flex flex-col gap-3">
-                  {courseDetails.map((value, index) => (
+                  {courseDetails.map((value: any, index: number) => (
                     <CourseDetailsComponent
                       key={index}
                       header={value.header}

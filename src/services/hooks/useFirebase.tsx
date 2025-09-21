@@ -41,7 +41,7 @@ export const useFirebase = () => {
       setCourses(prev => 
         prev.map(course => 
           course.id.toString() === id 
-            ? { ...course, ...courseData } 
+            ? { ...course, ...courseData } as Content
             : course
         )
       );
