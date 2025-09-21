@@ -61,7 +61,7 @@ export type VideoDetails = {
 };
 
 export type Content = {
-  id: number;
+  id: string | number;
   contentImage: string;
   title: string;
   description: string;

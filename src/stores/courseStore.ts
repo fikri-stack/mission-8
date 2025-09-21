@@ -62,7 +62,7 @@ export const useCourseStore = create<CourseState>((set, get) => ({
       await updateCourse(id, courseData);
       set((state) => ({
         courses: state.courses.map(course => 
-          course.id.toString() === id 
+          String(course.id) === String(id) 
             ? { ...course, ...courseData }
             : course
         ),
@@ -82,7 +82,7 @@ export const useCourseStore = create<CourseState>((set, get) => ({
       set({ loading: true, error: null });
       await deleteCourse(id);
       set((state) => ({
-        courses: state.courses.filter(course => course.id.toString() !== id),
+        courses: state.courses.filter(course => String(course.id) !== String(id)),
         loading: false
       }));
     } catch (error) {

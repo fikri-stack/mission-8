@@ -29,7 +29,7 @@ export const getCourses = async (): Promise<Content[]> => {
     const querySnapshot = await getDocs(collection(db, COLLECTION_NAME));
     const courses: Content[] = [];
     querySnapshot.forEach((doc) => {
-      courses.push({ id: parseInt(doc.id), ...doc.data() } as Content);
+      courses.push({ id: doc.id, ...doc.data() } as Content);
     });
     return courses;
   } catch (error) {
@@ -45,7 +45,7 @@ export const getCourseById = async (id: string): Promise<Content | null> => {
     const docSnap = await getDoc(docRef);
     
     if (docSnap.exists()) {
-      return { id: parseInt(docSnap.id), ...docSnap.data() } as Content;
+      return { id: docSnap.id, ...docSnap.data() } as Content;
     } else {
       return null;
     }

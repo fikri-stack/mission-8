@@ -75,14 +75,14 @@ export const AdminPage = () => {
       reviewCount: course.reviewCount,
       contentImage: course.contentImage
     });
-    setEditingId(course.id.toString());
+    setEditingId(String(course.id));
     setShowForm(true);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string | number) => {
     if (confirm("Are you sure you want to delete this course?")) {
       try {
-        await removeCourse(id.toString());
+        await removeCourse(String(id));
       } catch (error) {
         console.error("Error deleting course:", error);
       }
@@ -145,33 +145,33 @@ export const AdminPage = () => {
               <TextInput
                 label="Title"
                 value={formData.title}
-                onChange={(e) => setFormData({...formData, title: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, title: e.target.value})}
                 required
               />
               <TextInput
                 label="Description"
                 value={formData.description}
-                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, description: e.target.value})}
                 required
               />
               <TextInput
                 label="Price"
                 value={formData.price}
-                onChange={(e) => setFormData({...formData, price: e.target.value})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, price: e.target.value})}
                 required
               />
               <TextInput
                 label="Rating (0-5)"
                 type="number"
                 value={formData.rating.toString()}
-                onChange={(e) => setFormData({...formData, rating: Number(e.target.value)})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, rating: Number(e.target.value)})}
                 required
               />
               <TextInput
                 label="Review Count"
                 type="number"
                 value={formData.reviewCount.toString()}
-                onChange={(e) => setFormData({...formData, reviewCount: Number(e.target.value)})}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFormData({...formData, reviewCount: Number(e.target.value)})}
                 required
               />
               <div className="flex gap-4">
