@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { getCourses, addCourse, updateCourse, deleteCourse, clearAllCourses } from '../services/firebaseService';
+import { fetchCourses } from '../services/axiosService';
 import type { Content } from '../utils/types';
 
 interface CourseState {
@@ -28,7 +29,7 @@ export const useCourseStore = create<CourseState>((set) => ({
   loadCourses: async () => {
     try {
       set({ loading: true, error: null });
-      const courses = await getCourses();
+      const courses = await fetchCourses();
       set({ courses, loading: false });
     } catch (error) {
       set({ 

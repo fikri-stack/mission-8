@@ -5,6 +5,7 @@ import { HomePage } from "./pages/home";
 import { ProductsPage } from "./pages/products";
 import { ProductsDetailsPage } from "./pages/produtcsDetails";
 import { AdminPage } from "./pages/admin";
+import { ProfilePage } from "./pages/profile";
 
 import "./firebase";
 
@@ -18,6 +19,7 @@ export const App = () => {
         <Route path="/products" Component={ProductsPage}></Route>
         <Route path="/product-details/:id" Component={ProductsDetailsPage}></Route>
         <Route path="/admin" Component={AdminPage}></Route>
+        <Route path="/profile" Component={ProfilePage}></Route>
       </Routes>
     </Router>
   );

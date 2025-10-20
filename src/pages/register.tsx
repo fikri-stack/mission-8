@@ -8,8 +8,9 @@ export const RegisterPage = () => {
   const register = (data:{
     name: string;
     email: string;
+    phone: string;
     password: string;
-    confirmPassword: string;
+    passwordConfirmation: string;
   }) => {
     const email = localStorage.getItem(data.email);
     if(email){
@@ -17,6 +18,11 @@ export const RegisterPage = () => {
       return;
     }   
     localStorage.setItem(data.email,data.password);
+    localStorage.setItem('userData', JSON.stringify({
+      name: data.name,
+      email: data.email,
+      phone: data.phone
+    }));
     window.confirm("Akun berhasil dibuat, silahkan login");
     navigate("/login")
   }

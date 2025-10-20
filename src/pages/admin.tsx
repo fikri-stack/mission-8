@@ -104,6 +104,7 @@ export const AdminPage = () => {
                     await clearAll();
                     alert('All courses deleted!');
                   } catch (error) {
+                    console.log(error)
                     alert('Failed to delete courses!');
                   }
                 }

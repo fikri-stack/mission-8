@@ -54,7 +54,12 @@ export const HeaderLayout = () => {
                   Kategori
                   {showDropdown && (
                     <div className="absolute -left-10 top-full z-10 mt-2 min-w-[200px] bg-white shadow">
-                      <div className="border-b border-t p-4 hover:bg-slate-100">Profil saya</div>
+                      <div 
+                        onClick={() => navigate('/profile')}
+                        className="border-b border-t p-4 hover:bg-slate-100 cursor-pointer"
+                      >
+                        Profil saya
+                      </div>
                       <div className="border-b p-4 hover:bg-slate-100">Kelas saya</div>
                       <div className="border-b p-4 hover:bg-slate-100">Pesanan saya</div>
                       <div
@@ -104,8 +109,8 @@ export const HeaderLayout = () => {
             style={{ zIndex: 100 }}
           >
             <div
-              onClick={() => setShowDropdown(!showDropdown)}
-              className="border-b border-t p-4 hover:bg-slate-100"
+              onClick={() => navigate('/profile')}
+              className="border-b border-t p-4 hover:bg-slate-100 cursor-pointer"
             >
               Profil saya
             </div>
